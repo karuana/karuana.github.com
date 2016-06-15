@@ -12,12 +12,13 @@ var Team = function () {
 };
 
 Team.prototype.endTurn = function () {
-    var point = 1;
-    this.star = (this.star < MAX) ? this.star + point : this.star;
-    this.heart = (this.heart < MAX) ? this.heart + point: this.heart;
-    this.circle = (this.circle < MAX) ? this.circle + point : this.circle;
-    this.square =  (this.square < MAX) ? this.square + point : this.square;
-    this.triangle = (this.triangle < MAX) ? this.triangle + point : this.triangle;
+    var point = Number($('#max').val());
+    point = _.isUndefined(point) ? 1 : point;
+    this.star = (this.star + point < MAX) ? this.star + point : MAX;
+    this.heart = (this.heart + point< MAX) ? this.heart + point: MAX;
+    this.circle = (this.circle + point< MAX) ? this.circle + point :MAX;
+    this.square =  (this.square + point< MAX) ? this.square + point : MAX;
+    this.triangle = (this.triangle + point < MAX) ? this.triangle + point : MAX;
 };
 
 Team.prototype.add = function (squad) {
