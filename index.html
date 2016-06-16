@@ -41,18 +41,10 @@
         </div>
         <div class="col-md-4">
             <div class="row">
-                <div class="col-md-6">
                     <button type="button" class="btn btn-primary btn-lg btn-block" id="turn-end-button">
                         TurnEnd
                     </button>
-                </div>
-                <div class="col-md-6">
-
-                        <label for="max">next point</label>
-                        <input type="text" class="form-control" id="max" placeholder="next point" value="1">
-                </div>
             </div>
-
         </div>
         <div class="col-md-4 time-score">
             <dl class="dl-horizontal">
@@ -87,9 +79,49 @@
                        Blue 팀
                     </h3>
                     <div class="blue">
-
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="max">다음 턴 증가 수치</label>
+            <input type="text" class="form-control" id="max" placeholder="next point" value="1">
+        </div>
+        <div class="col-md-4">
+            <div>
+                <label for="move">이동 수치</label>
+                <input type="text" class="form-control" id="move" placeholder="move count" value="1">
+            </div>
+            <div>
+                <label for="attack">공격 수치</label>
+                <input type="text" class="form-control" id="attack" placeholder="attack count" value="2">
+            </div>
+            <div>
+                <label for="revival">부활 수치</label>
+                <input type="text" class="form-control" id="revival" placeholder="revival count" value="3">
+            </div>
+            <div>
+                <label for="activeMaxPoint">최대 활동 포인트</label>
+                <input type="text" class="form-control" id="activeMaxPoint" placeholder="max count" value="10">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-success" id="coin-toss">
+                코인토스
+            </button>
+            <div>
+                <label for="red-weight">Red 가중치</label>
+                <input type="text" class="form-control" id="red-weight" placeholder="red" value="10">
+            </div>
+            <div>
+                <label for="blue-weight">blue 가중치</label>
+                <input type="text" class="form-control" id="blue-weight" placeholder="blue" value="10">
+            </div>
+            <div>
+                결과:
+                <h3 id="coin-result">RED</h3>
             </div>
         </div>
     </div>
@@ -116,105 +148,120 @@
         <tbody>
         <tr class="<%=color%>">
             <td>
-                별
+                ☆(별)
             </td>
             <td>
-                <%=score.star%>
+                <%=data.score[0]%>
             </td>
             <td>
-                <button type="button" class="btn btn-success move-button" data-target="star" data-team="<%=team%>">
+                <button type="button" class="btn btn-success move-button" data-target="0" data-team="<%=team%>">
                     이동
                 </button>
-                <button type="button" class="btn  btn-warning attack-button" data-target="star" data-team="<%=team%>">
+                <button type="button" class="btn  btn-warning attack-button" data-target="0" data-team="<%=team%>">
                     공격
+                </button>
+                <button type="button" class="btn  btn-info revival-button" data-target="0" data-team="<%=team%>">
+                    부활
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger add-button" data-target="star" data-team="<%=team%>">
+                <button type="button" class="btn btn-danger add-button" data-target="0" data-team="<%=team%>">
                     더하기
                 </button>
             </td>
         </tr>
         <tr class="<%=color%>">
             <td>
-                하트
+                ♡(하트)
             </td>
             <td>
-                <%=score.heart%>
+                <%=data.score[1]%>
             </td>
             <td>
-                <button type="button" class="btn btn-success move-button" data-target="heart" data-team="<%=team%>">
+                <button type="button" class="btn btn-success move-button" data-target="1" data-team="<%=team%>">
                     이동
                 </button>
-                <button type="button" class="btn  btn-warning attack-button" data-target="heart" data-team="<%=team%>">
+                <button type="button" class="btn  btn-warning attack-button" data-target="1" data-team="<%=team%>">
                     공격
+                </button>
+                <button type="button" class="btn  btn-info revival-button" data-target="1" data-team="<%=team%>">
+                    부활
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger add-button" data-target="heart" data-team="<%=team%>">
+                <button type="button" class="btn btn-danger add-button" data-target="1" data-team="<%=team%>">
                     더하기
                 </button>
             </td>
         </tr>
         <tr class="<%=color%>">
             <td>
-                세모
+                △(세모)
             </td>
             <td>
-                <%=score.triangle%>
+                <%=data.score[2]%>
             </td>
             <td>
-                <button type="button" class="btn btn-success move-button" data-target="triangle" data-team="<%=team%>">
+                <button type="button" class="btn btn-success move-button" data-target="2" data-team="<%=team%>">
                     이동
                 </button>
-                <button type="button" class="btn  btn-warning attack-button" data-target="triangle" data-team="<%=team%>">
+                <button type="button" class="btn  btn-warning attack-button" data-target="2" data-team="<%=team%>">
                     공격
+                </button>
+                <button type="button" class="btn  btn-info revival-button" data-target="2" data-team="<%=team%>">
+                    부활
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger add-button" data-target="triangle" data-team="<%=team%>">
+                <button type="button" class="btn btn-danger add-button" data-target="2" data-team="<%=team%>">
                     더하기
                 </button>
             </td>
         </tr>
         <tr class="<%=color%>">
             <td>
-                네모
+                □(작은 네모)
             </td>
             <td>
-                <%=score.square%>
+                <%=data.score[3]%>
             </td>
             <td>
-                <button type="button" class="btn btn-success move-button" data-target="square" data-team="<%=team%>">
+                <button type="button" class="btn btn-success move-button" data-target="3" data-team="<%=team%>">
                     이동
                 </button>
-                <button type="button" class="btn  btn-warning attack-button" data-target="square" data-team="<%=team%>">
+                <button type="button" class="btn  btn-warning attack-button" data-target="3" data-team="<%=team%>">
                     공격
+                </button>
+                <button type="button" class="btn  btn-info revival-button" data-target="3" data-team="<%=team%>">
+                    부활
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger add-button" data-target="square" data-team="<%=team%>">
+                <button type="button" class="btn btn-danger add-button" data-target="3" data-team="<%=team%>">
                     더하기
                 </button>
             </td>
         </tr>
         <tr class="<%=color%>">
             <td>
-                원
+                ■(큰 네모)
             </td>
             <td>
-                <%=score.circle%>
+                <%=data.score[4]%>
             </td>
             <td>
-                <button type="button" class="btn btn-success move-button" data-target="circle" data-team="<%=team%>">
+                <button type="button" class="btn btn-success move-button" data-target="4" data-team="<%=team%>">
                     이동
                 </button>
-                <button type="button" class="btn  btn-warning attack-button" data-target="circle" data-team="<%=team%>">
+                <button type="button" class="btn  btn-warning attack-button" data-target="4" data-team="<%=team%>">
                     공격
+                </button>
+                <button type="button" class="btn  btn-info revival-button" data-target="4" data-team="<%=team%>">
+                    부활
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger add-button" data-target="circle" data-team="<%=team%>">
+                <button type="button" class="btn btn-danger add-button" data-target="4" data-team="<%=team%>">
                     더하기
                 </button>
             </td>
@@ -231,6 +278,12 @@
             </dt>
             <dd>
                <%=time%>
+            </dd>
+            <dt>
+                현재 턴 :
+            </dt>
+            <dd>
+                <%=turnCount%>
             </dd>
             <dt>
                 턴 진행 시간 :
