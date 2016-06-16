@@ -95,9 +95,14 @@ var timeKey = null;
 var redTeam = new Team();
 var blueTeam = new Team();
 
+var yellowTeam = new Team();
+var greenTeam = new Team();
+
 
 var $redPointTable = $('.red');
 var $bluePointTable = $('.blue');
+var $yellowPointTable = $('.yellow');
+var $greenPointTable = $('.green');
 var $timeScoreBoard = $('.time-score');
 var templateData =_.template( $('#team-template').html());
 
@@ -111,6 +116,22 @@ var $startButton = $('#start-button');
 var $redWeight = $('#red-weight');
 var $blueWeight = $('#blue-weight');
 
+var $toggleArea = $('.toggle-area');
+
+
+var callTeamMetho = function(target, method, value) {
+
+    if(target === 'red') {
+        redTeam[method](value);
+    } else if(target === 'blue') {
+        blueTeam[method](value);
+    } else if(target === 'yellow') {
+        yellowTeam[method](value);
+    } else {
+        greenTeam[method](value);
+    }
+
+};
 var reload = function() {
     $redPointTable.html(templateData({
         color : "danger",
@@ -118,21 +139,28 @@ var reload = function() {
         team : "red"
     }));
 
-
     $bluePointTable.html(templateData({
         color : "info",
         data: blueTeam,
         team: "blue"
     }));
 
+    $yellowPointTable.html(templateData({
+        color : "warning",
+        data: yellowTeam,
+        team: "yellow"
+    }));
+
+    $greenPointTable.html(templateData({
+        color : "success",
+        data: greenTeam,
+        team: "green"
+    }));
+
     $('.attack-button').click(function () {
         var $this = $(this);
         var target = $this.data('target');
-        if($this.data('team') === "red") {
-            redTeam.attack(target);
-        } else {
-            blueTeam.attack(target);
-        }
+        callTeamMetho($this.data('team'), "attack", target);
 
         reload();
     });
@@ -140,11 +168,7 @@ var reload = function() {
     $('.move-button').click(function () {
         var $this = $(this);
         var target = $this.data('target');
-        if($this.data('team') === "red") {
-            redTeam.move(target);
-        } else {
-            blueTeam.move(target);
-        }
+        callTeamMetho($this.data('team'), "move", target);
 
         reload();
     });
@@ -152,11 +176,7 @@ var reload = function() {
     $('.add-button').click(function () {
         var $this = $(this);
         var target = $this.data('target');
-        if($this.data('team') === "red") {
-            redTeam.add(target);
-        } else {
-            blueTeam.add(target);
-        }
+        callTeamMetho($this.data('team'), "add", target);
 
         reload();
     });
@@ -164,20 +184,19 @@ var reload = function() {
     $('.revival-button').click(function () {
         var $this = $(this);
         var target = $this.data('target');
-        if($this.data('team') === "red") {
-            redTeam.revival(target);
-        } else {
-            blueTeam.revival(target);
-        }
-
+        callTeamMetho($this.data('team'), "revival", target);
         reload()
     })
 };
 
 
+
+
 $turnEndButton.click(function() {
     redTeam.endTurn();
     blueTeam.endTurn();
+    yellowTeam.endTurn();
+    greenTeam.endTurn();
     turnTime = moment();
     turnCount ++;
     reload();
@@ -186,6 +205,9 @@ $turnEndButton.click(function() {
 $resetButton.click(function () {
     redTeam.reset();
     blueTeam.reset();
+    yellowTeam.reset();
+    greenTeam.reset();
+
     reload();
     clearInterval(timeKey);
     startTime = null;
@@ -249,4 +271,7 @@ $('#coin-toss').click(function () {
 });
 
 
+$('#toggle-button').click(function () {
+    $toggleArea.toggle();
+});
 
